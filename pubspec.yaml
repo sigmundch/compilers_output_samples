@@ -1,0 +1,6 @@
+name: compilers_output_samples
+dependencies:
+  js: any
+
+environment:
+  sdk: ">= 2.9.0-1 < 3.0.0"
