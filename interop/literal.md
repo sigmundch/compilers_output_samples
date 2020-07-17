@@ -76,7 +76,7 @@ J.JavaScriptObject.prototype = {
 ```
 
 ### ddc
-``js
+```js
 literal_read.main = function main() {
   core.print(dart.global.value.a);
 };
