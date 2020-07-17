@@ -1,4 +1,4 @@
-# Samples of closurs
+# Samples of closures
 
 * closures capturing state
 * closures updating state on the enclosing scope
