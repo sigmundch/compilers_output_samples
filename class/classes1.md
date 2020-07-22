@@ -10,6 +10,9 @@ class Base {
   }
 }
 ```
+
+## dart2js
+
 A generative constructor has several steps which are all collected into a
 _generative constructor factory_:
 
@@ -56,6 +59,49 @@ that the JavaScript constructor is very simple and makes no reference to outside
 code. This ensures that the constructor is always well optimized by the JIT and
 never deoptimized due to something changing in its environment.
 
+## ddc
+```js
+var L0 = "org-dartlang-app:/classes1.dart";
+var count = dart.privateName(classes1, "Base.count");
+var colours = dart.privateName(classes1, "Base.colours");
+var name$ = dart.privateName(classes1, "Base.name");
+classes1.Base = class Base extends core.Object {
+  get count() {
+    return this[count];
+  }
+  set count(value) {
+    this[count] = value;
+  }
+  get colours() {
+    return this[colours];
+  }
+  set colours(value) {
+    this[colours] = value;
+  }
+  get name() {
+    return this[name$];
+  }
+  set name(value) {
+    this[name$] = value;
+  }
+};
+(classes1.Base.new = function(name) {
+  this[count] = 0;
+  this[colours] = LinkedHashSetOfString().new();
+  this[name$] = name;
+  if (!(this.name !== "")) dart.assertFailed(null, L0, 6, 12, "name != \"\"");
+}).prototype = classes1.Base.prototype;
+dart.addTypeTests(classes1.Base);
+dart.addTypeCaches(classes1.Base);
+dart.setLibraryUri(classes1.Base, L0);
+dart.setFieldSignature(classes1.Base, () => ({
+  __proto__: dart.getFields(classes1.Base.__proto__),
+  count: dart.fieldType(core.int),
+  colours: dart.fieldType(core.Set$(core.String)),
+  name: dart.fieldType(core.String)
+}));
+```
+
 # Inheritance
 
 Lets add a class that extends `Base`:
@@ -72,6 +118,8 @@ class Extends extends Base {
   }
 }
 ```
+
+## dart2js
 
 The new class has a generative constructor factory
 - Evaluates the initializers up the inheritance chain, so the access to
@@ -119,3 +167,30 @@ Notes:
 - The allocator function for `Extends` includes all the fields from both
   classes. JavaScript is too fluid for there to be much performance benefit from
   trying to share the code of the base class initialization.
+
+## ddc
+
+```js
+var fieldA = dart.privateName(classes1, "Extends.fieldA");
+classes1.Extends = class Extends extends classes1.Base {
+  get fieldA() {
+    return this[fieldA];
+  }
+  set fieldA(value) {
+    this[fieldA] = value;
+  }
+};
+(classes1.Extends.new = function(name) {
+  this[fieldA] = classes1.globalA;
+  classes1.Extends.__proto__.new.call(this, dart.str("extends ") + dart.str(name));
+  if (!dart.test(this.colours[$isEmpty])) dart.assertFailed(null, L0, 17, 12, "colours.isEmpty");
+  if (!(name != this.name)) dart.assertFailed(null, L0, 18, 12, "name != this.name");
+}).prototype = classes1.Extends.prototype;
+dart.addTypeTests(classes1.Extends);
+dart.addTypeCaches(classes1.Extends);
+dart.setLibraryUri(classes1.Extends, L0);
+dart.setFieldSignature(classes1.Extends, () => ({
+  __proto__: dart.getFields(classes1.Extends.__proto__),
+  fieldA: dart.fieldType(core.bool)
+}));
+```
