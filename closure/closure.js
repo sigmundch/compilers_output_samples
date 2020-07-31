@@ -9,8 +9,9 @@ const CT = Object.create(null);
 closure.main = function main() {
   let message = "change me!";
   let greeting = "good day";
+  let readonly = "!";
   let localMethod = dart.fn(foo => {
-    message = dart.str(greeting) + dart.str(" ") + dart.str(foo);
+    message = dart.str(greeting) + dart.str(" ") + dart.str(foo) + dart.str(readonly);
   }, StringToNullN());
   core.print(message);
   localMethod("sunshine");
@@ -20,10 +21,10 @@ closure.main = function main() {
   core.print(message);
 };
 dart.trackLibraries("closure", {
-  "org-dartlang-app:/closure/closure.dart": closure
+  "org-dartlang-app:/closure.dart": closure
 }, {
 }, null);
 // Exports:
-exports.closure__closure = closure;
+exports.closure = closure;
 
 //# sourceMappingURL=closure.js.map
