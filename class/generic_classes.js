@@ -69,6 +69,8 @@ generic_classes.confuse = function confuse(x) {
   return x;
 };
 generic_classes.main = function main() {
+  generic_classes.confuse("");
+  generic_classes.confuse(null);
   let base = new (BaseOfString()).new();
   let extendsBase = new (ExtendsOfnum()).new();
   core.print(base.extractGenericArg);

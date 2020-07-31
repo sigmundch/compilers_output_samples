@@ -22,19 +22,24 @@
 
 ## Module format similarities
 - Top-level objects/containers/initialization
-```
+
+```js
 var module = Object.create(dart.library);
 var intL = () => (intL = dart.constFn(dart.legacy(core.int)))();
 var L0 = "dev-dart-app:/module.dart";
 var _private = dart.privateName(module, "_private");
 ```
+
 - Imports/Exports
-```
+
+```js
 export { module };
 import { core, dart, dartx } from 'dart_sdk.js';
 ```
+
 - Misc. Logic
-```
+
+```js
 dart.addTypeTests(module.Foo);
 dart.defineLazy(module.SomeClass, {
   get someField() {
@@ -43,8 +48,9 @@ dart.defineLazy(module.SomeClass, {
   set someField(_) {}
 }, false);
 ```
+
 - Track libraries call
-```
+```js
 dart.trackLibraries("module", {
 "dev-dart-app:/module.dart": module
 }, {
