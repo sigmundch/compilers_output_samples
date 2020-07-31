@@ -1,3 +1,4 @@
+# User-defined JavaScript type declaration
 
 ```dart
 @JS()
