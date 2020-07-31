@@ -2,5 +2,5 @@
 
 How do we support calling JS-interop types on each backend
 
-* [literal.md][]
-* [user_type.md][]
+* [Literal JavaScript objects](literal.md)
+* [User defined JavaScript types](user_type.md)
