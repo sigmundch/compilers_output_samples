@@ -1,6 +1,10 @@
-# Samples of module representations (ddc only)
+# Modules
 
-## Overview of DDC module systems/formats
+How is code organize into files?
+
+## DDC module representations
+
+### Overview of DDC module systems/formats
 - es6/d8
   - The modules in this format will be peppered with "import" or "export" and other ES6 features
   - Doesn't handle cross-module renaming when modules have the same name but different paths
@@ -20,7 +24,7 @@
   - Allows the most control over module handling
   - Allows separate modules to be trivially concatenated
 
-## Module format similarities
+### Module format similarities
 - Top-level objects/containers/initialization
 
 ```js
@@ -57,4 +61,21 @@ dart.trackLibraries("module", {
 }, null);
 ```
 
-## Bootstrapping code
+### Bootstrapping code
+
+TBD
+
+## Dart2js hunks
+
+Dart2js only splits code in multiple files if using deferred loading:
+
+```dart
+import 'hello_world.dart' deferred as foo;
+
+main() async {
+  await foo.loadLibrary();
+  foo.main();
+}
+```
+
+Example [main hunk](deferred_sample1.dart.dart2js.js) and [deferred hunk](deferred_sample1.dart.dart2js.js).
