@@ -7,7 +7,7 @@ is hooked, how code is organized in modules, among other things.
 
 How is code organized in files?
 
-* DDC uses [modules](modules/README.md)
+* DDC uses [modules](module/README.md)
 * dart2js uses hunks (TBD)
 
 How are classes represented?
