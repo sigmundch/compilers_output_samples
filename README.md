@@ -13,4 +13,4 @@ How is code organized in files?
 How are classes represented?
 
 * [classes, constructors, and inheritance](class/classes1.md)
-* [generics](class/generics.md)
+* [generics](class/generic_classes.md)
