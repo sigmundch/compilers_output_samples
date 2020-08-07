@@ -76,4 +76,32 @@ main: function() {
 isLegacyString: function(s) {                                                   
   return typeof s == "string";                                               
 }
+
+/* ... */
+
+var type$ = (function rtii() {                                                 
+  var findType = H.findType;                                                   
+  return {                                                                     
+    BoundClosure: findType("BoundClosure"),                                    
+    Function: findType("Function"),                                            
+    Iterable_dynamic: findType("Iterable<@>"),                                 
+    JSArray_String: findType("JSArray<String>"),                               
+    JSArray_dynamic: findType("JSArray<@>"),                                   
+    JSNull: findType("JSNull"),                                                
+    JavaScriptFunction: findType("JavaScriptFunction"),                        
+    Null: findType("Null"),                                                    
+    Object: findType("Object"),                                                
+    String: findType("String"),                                                
+    bool: findType("bool"),                                                    
+    double: findType("double"),                                                
+    int: findType("int"),                                                      
+    legacy_Never: findType("0&*"),                                             
+    legacy_Object: findType("Object*"),                                        
+    nullable_Future_Null: findType("Future<Null>?"),                           
+    nullable_Object: findType("Object?"),                                      
+    nullable_String: findType("String?"),                                      
+    nullable_int: findType("int?"),                                            
+    num: findType("num")                                                       
+  };                                                                           
+})();
 ```
