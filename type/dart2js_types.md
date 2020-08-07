@@ -58,6 +58,7 @@ The `Rti` objects form a DAG. `String?` is represented as a 'nullable' `Rti` obj
     | '?' | ----> | String |
     +-----+       +--------+
 
+The first time a recipe is evaluated, the runtime parses it and constructs an `Rti`. Subsequent uses of the same recipe will instead fetch this `Rti` from a cache.
 
 ## Types of instances
 
@@ -99,7 +100,6 @@ A type check for `combine` looks like:
 
 `Rti._eval` uses a cache on the `Rti` representing the environment, so after a short while, the `Rti` objects come from the cache.
 
-
 # Optimizations
 
 ## Lazy initialization of tests
@@ -124,7 +124,9 @@ The `_is` initializer stub knows about `_isString` and `_isInt` and uses them in
 This makes the test `x is T` in a generic context much more efficient.
 
 The optimizer also knows about these specializations and will reduce `$types.int._is(x)` to `H._isInt(x)`.
-    
+There are also specializations for `Object` and top types as well as the legacy and nullable versions of specializable types.
+
+If the type is an interface type `Foo` which has no type arguments or whose type arguments are all top types, we can instead lower `x is Foo` to a check for the property `x.$isFoo`.
 
 ## Ground types, eval chains
 
