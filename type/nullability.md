@@ -24,21 +24,6 @@ main() {
 bool isLegacyString(dynamic s) => s is String;
 ```
 
-## dart2js (NNBD weak mode)
-
-```js
-main: function() {                                                                                                                                        
-  P.print(true);                                                                
-  P.print(false);                                                               
-  P.print(false);                                                               
-  P.print(true);                                                             
-  P.print(true);                                                             
-  P.print(true);                                                             
-  P.print(true);                                                             
-  P.print(type$.nullable_int._is("Hello World"));                            
-}
-```
-
 ## ddc
 
 ```js
@@ -61,4 +46,20 @@ nullability.main = function main() {
 legacy_lib.isLegacyString = function isLegacyString(s) {
   return StringL().is(s);
 };
+```
+
+
+## dart2js (NNBD weak mode)
+
+```js
+main: function() {                                                                                                                                        
+  P.print(true);                                                                
+  P.print(false);                                                               
+  P.print(false);                                                               
+  P.print(true);                                                             
+  P.print(true);                                                             
+  P.print(true);                                                             
+  P.print(true);                                                             
+  P.print(type$.nullable_int._is("Hello World"));                            
+}
 ```
