@@ -53,7 +53,7 @@ legacy_lib.isLegacyString = function isLegacyString(s) {
 ```
 
 
-## dart2js (NNBD weak mode)
+## dart2js
 
 ```js
 main: function() {                                                              
