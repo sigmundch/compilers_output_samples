@@ -85,12 +85,11 @@ type.main = function main() {
 
 ```js
 main: function() {                                                                                                                                        
-  var t1, generic;                                                           
   P.print(true);                                                             
+  V.InterfaceType$();                                                        
   P.print(true);                                                             
-  t1 = type$.GenericType_int;                                                
-  generic = new V.GenericType(t1);                                               
-  P.print(t1._is(generic));                                                  
+  var generic = V.GenericType$(type$.int);                                   
+  P.print(type$.GenericType_int._is(generic));                               
   P.print(type$.int_Function_String._is(new V.main_closure()));              
   P.print(type$.A_Function_A_extends_nullable_Object_A._is(new V.main_closure0()));
   P.print(type$.int_Function_A_extends_nullable_Object_2_A_and_int._is(generic.get$genericFunction()));
@@ -98,30 +97,32 @@ main: function() {
 
 /* ... */
 
-var type$ = (function rtii() {                                                        
-  var findType = H.findType;                                                        
-  return {                                                                          
-    A_Function_A_extends_nullable_Object_A: findType("0^(0^)<Object?>"),            
-    Function: findType("Function"),                                                 
-    GenericType_int: findType("GenericType<int>"),                                
-    JSArray_String: findType("JSArray<String>"),                                  
-    JSArray_dynamic: findType("JSArray<@>"),                                        
-    JSNull: findType("JSNull"),                                                     
-    JavaScriptFunction: findType("JavaScriptFunction"),                               
-    Null: findType("Null"),                                                             
-    Object: findType("Object"),                                                     
-    String: findType("String"),                                                   
-    bool: findType("bool"),                                                     
-    double: findType("double"),                                                 
-    dynamic: findType("@"),                                                       
-    int: findType("int"),                                                           
+var type$ = (function rtii() {                                                 
+  var findType = H.findType;                                                   
+  return {                                                                     
+    A_Function_A_extends_nullable_Object_A: findType("0^(0^)<Object?>"),       
+    BoundClosure: findType("BoundClosure"),                                    
+    Function: findType("Function"),                                            
+    GenericType_int: findType("GenericType<int>"),                             
+    Iterable_dynamic: findType("Iterable<@>"),                                 
+    JSArray_String: findType("JSArray<String>"),                               
+    JSArray_dynamic: findType("JSArray<@>"),                                   
+    JSNull: findType("JSNull"),                                                
+    JavaScriptFunction: findType("JavaScriptFunction"),                        
+    Null: findType("Null"),                                                    
+    Object: findType("Object"),                                                
+    String: findType("String"),                                                
+    bool: findType("bool"),                                                    
+    double: findType("double"),                                                
+    dynamic: findType("@"),                                                    
+    int: findType("int"),                                                      
     int_Function_A_extends_nullable_Object_2_A_and_int: findType("int(0^,int)<Object?>"),
-    int_Function_String: findType("int(String)"),                                   
-    legacy_Never: findType("0&*"),                                                  
-    legacy_Object: findType("Object*"),                                             
-    nullable_Future_Null: findType("Future<Null>?"),                                
-    nullable_Object: findType("Object?"),                                           
-    num: findType("num")                                                            
+    int_Function_String: findType("int(String)"),                              
+    legacy_Never: findType("0&*"),                                             
+    legacy_Object: findType("Object*"),                                        
+    nullable_Future_Null: findType("Future<Null>?"),                           
+    nullable_Object: findType("Object?"),                                      
+    num: findType("num")                                                       
   };                                                                           
 })();
 ```
