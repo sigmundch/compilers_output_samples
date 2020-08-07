@@ -3,9 +3,9 @@
 --------------------------------------------------------------------------------
 
 Types in dart2js are implemented largely by a library,
-[js_runtime/lib/rti.cpp](https://github.com/dart-lang/sdk/blob/master/sdk/lib/_internal/js_runtime/lib/rti.dart).
+[js_runtime/lib/rti.dart](https://github.com/dart-lang/sdk/blob/master/sdk/lib/_internal/js_runtime/lib/rti.dart).
 
-One of the design principles was to do as much a possible in one operation, and
+One of the design principles was to do as much as possible in one operation, and
 to cache results so that runtime operations are mostly a fast access via a cache.
 All types, and some other things, are represented through one class, `Rti`.
 `Rti` objects are _interned_, so there is only one `Rti` object representing any type, no matter how it is constructed.
@@ -17,7 +17,7 @@ This means that a cache on the type can be reused across contexts.
 These contain JavaScript functions that perform the 'is' and 'as' Dart operations.
 
     x is T   -->   T._is(x)
-    a as Z   -->   Z._as(x)
+    a as Z   -->   Z._as(a)
 
 `_is` and `_as` are fields of a small object so the field names minify to single letter names which makes this code pattern quite compact.
 
@@ -31,8 +31,8 @@ Ground types are created via calls to `findType`.
 
     H.findType("String")               // `String`
     H.findType("String?")              // `String?`
-    H.findType("List<Comparable>")     // `List<String>`
-    H.findType("JSArray<String>")      //
+    H.findType("List<Comparable>")     // `List<Comparable>`
+    H.findType("JSArray<String>")      // `JSArray<String>`
     H.findType("String?(String)")      // `String? Function(String)`
 
 dart2js arranges that many ground types are available from a top-level variable that has the (unminified) name `type$`.
@@ -100,9 +100,9 @@ A type check for `combine` looks like:
 
 The `_is` and `_as` fields can contain specialized methods for performing the checks.
 It turns out that most types are not used in `is`- and `as`- checks, so the library defers any decision
-by initializing the `_is` and `_as` fields to an initializer stubs.
+by initializing the `_is` and `_as` fields to initializer stubs.
 The initializer stub overwrites the `_is`/`_as` field with the real implementation.
-When a stub are called, the `Rti` tree is inspected to see if it matches one of the known patterns.
+When a stub is called, the `Rti` tree is inspected to see if it matches one of the known patterns.
 The default for `x is T` is a method that tests if `subtype(_instanceType(x), T)`.
 
 For primitive types it is much more efficient to use a corresponding JavaScript fragment.
@@ -125,5 +125,5 @@ The optimizer also knows about these specializations and will reduce `$types.int
 A ground type followed by eval can be reduced to the constructed ground type.
 
 Back-to-back evals can be reduced to a single eval.
-Generally this means there are more entries in the cache on the root environment but fewer cache lookups to get teh finat `Rti`.
+Generally this means there are more entries in the cache on the root environment but fewer cache lookups to get the final `Rti`.
 
