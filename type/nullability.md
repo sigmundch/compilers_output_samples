@@ -1,26 +1,30 @@
 # Nullability
 
 ```dart
-import 'legacy_lib.dart';
-
-main() {
-  String? s = null;
-
-  print(s is String?); // true
-  print(isLegacyString(s)); // false
-  print(s is String); // false
-  print(s is int?); // true
-
-  s = "Hello World";
-
-  print(s is String?); // true
-  print(s is String); // true
-  print(isLegacyString(s)); // true
-  print(s is int?); // false
-}
-
-
-// From legacy_lib.dart
+import 'legacy_lib.dart';                                                           
+                                                                                    
+// Prevent dart2js from constant folding all the tests.                                                                                                       
+@pragma('dart2js:noInline')                                                         
+dynamic confuse(x) => x;                                                            
+dynamic s;                                                                          
+                                                                                    
+main() {                                                                            
+  s = confuse(null);                                                                
+                                                                                    
+  print(s is String?); // true                                                      
+  print(isLegacyString(s)); // false                                                
+  print(s is String); // false                                                      
+  print(s is int?); // true                                                         
+                                                                                    
+  s = confuse("Hello World");                                                       
+                                                                                    
+  print(s is String?); // true                                                      
+  print(s is String); // true                                                       
+  print(isLegacyString(s)); // true                                                 
+  print(s is int?); // false                                                        
+}                                                                                   
+                                                                                    
+// From legacy_lib.dart                                                             
 bool isLegacyString(dynamic s) => s is String;
 ```
 
@@ -52,14 +56,24 @@ legacy_lib.isLegacyString = function isLegacyString(s) {
 ## dart2js (NNBD weak mode)
 
 ```js
-main: function() {                                                                                                                                        
-  P.print(true);                                                                
-  P.print(false);                                                               
-  P.print(false);                                                               
-  P.print(true);                                                             
-  P.print(true);                                                             
-  P.print(true);                                                             
-  P.print(true);                                                             
-  P.print(type$.nullable_int._is("Hello World"));                            
+main: function() {                                                              
+  var t2, t3,                                                                   
+    t1 = V.confuse(null);                                                       
+  $.s = t1;                                                                     
+  t2 = type$.nullable_String;                                                   
+  P.print(t2._is(t1));                                                          
+  P.print(V.isLegacyString($.s));                                               
+  P.print(typeof $.s == "string");                                              
+  t1 = type$.nullable_int;                                                      
+  P.print(t1._is($.s));                                                                                                                                   
+  t3 = V.confuse("Hello World");                                                
+  $.s = t3;                                                                     
+  P.print(t2._is(t3));                                                          
+  P.print(typeof $.s == "string");                                              
+  P.print(V.isLegacyString($.s));                                               
+  P.print(t1._is($.s));                                                         
+},                                                                              
+isLegacyString: function(s) {                                                   
+  return typeof s == "string";                                               
 }
 ```
