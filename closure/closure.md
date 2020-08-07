@@ -69,7 +69,7 @@ main: function() {
     t1 = {};
   t1.message = _s10_;
   t1.greeting = "good day";
-  localMethod = new E.main_closure(t1);
+  localMethod = new E.main_closure(t1, "!");
   // ...
 },
 
