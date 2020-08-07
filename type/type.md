@@ -81,7 +81,7 @@ type.main = function main() {
 ```
 
 
-## dart2js (NNBD weak mode)
+## dart2js
 
 ```js
 main: function() {                                                                                                                                        
