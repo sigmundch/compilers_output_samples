@@ -29,11 +29,36 @@ main() {
 
 ## ddc
 ```js
+
+dart.addTypeTests = function addTypeTests(ctor, isClass) {
+  if (isClass == null) isClass = Symbol("_is_" + ctor.name);
+  ctor.prototype[isClass] = true;
+  ctor.is = function is_C(obj) {
+    return obj != null && (obj[isClass] || dart.is(obj, this));
+  };
+  ctor.as = function as_C(obj) {
+    if (obj != null && obj[isClass]) return obj;
+    return dart.as(obj, this);
+  };
+};
+
+/* ... */
+
 var ObjectN = () => (ObjectN = dart.constFn(dart.nullable(core.Object)))();
 var GenericTypeOfint = () => (GenericTypeOfint = dart.constFn(type.GenericType$(core.int)))();
 var StringToint = () => (StringToint = dart.constFn(dart.fnType(core.int, [core.String])))();
 var TToT = () => (TToT = dart.constFn(dart.gFnType(T => [T, [T]], T => [ObjectN()])))();
 var SAndintToint = () => (SAndintToint = dart.constFn(dart.gFnType(S => [core.int, [S, core.int]], S => [ObjectN()])))();
+
+/* ... */
+
+type.InterfaceType = class InterfaceType extends core.Object {};
+(type.InterfaceType.new = function() {
+  ;
+}).prototype = type.InterfaceType.prototype;
+dart.addTypeTests(type.InterfaceType);
+dart.addTypeCaches(type.InterfaceType);
+dart.setLibraryUri(type.InterfaceType, L0);
 
 /* ... */
 
