@@ -65,15 +65,19 @@ dart.setLibraryUri(type.InterfaceType, L0);
 type.main = function main() {
   let primitive = true;
   core.print(typeof primitive == 'boolean');
+  
   let $interface = new type.InterfaceType.new();
   core.print(type.InterfaceType.is($interface));
+  
   let generic = new (GenericTypeOfint()).new();
   core.print(GenericTypeOfint().is(generic));
+  
   let $function = dart.fn(s => {
     if (s == null) dart.nullFailed(L0, 17, 26, "s");
     return s.length;
   }, StringToint());
   core.print(StringToint().is($function));
+  
   let genericFunction = dart.fn((T, t) => t, TToT());
   core.print(TToT().is(genericFunction));
   core.print(TAndintToint().is(dart.bind(generic, 'genericFunction')));
