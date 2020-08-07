@@ -11,6 +11,12 @@ All types, and some other things, are represented through one class, `Rti`.
 `Rti` objects are _interned_, so there is only one `Rti` object representing any type, no matter how it is constructed.
 This means that a cache on the type can be reused across contexts.
 
+## Rti structure
+
+The core structure of an `Rti` is essentially a tagged union. Each `Rti` object has a small integer tag denoting the kind of type it represents - interface type, function type, nullable type, etc. - as well as some additional data fields which are populated depending on the tag. For example, if we have an interface type `Rti`, the primary data is the `String` containing the class name, and the additional data is the list of `Rti`s representing the type arguments. If we have a legacy type `T*`, the primary data is the `Rti` representing `T` and there is no additional data.
+
+Each `Rti` also contains its recipe (see below). These recipes use some shorthand but are human-readable overall, so they can be a good way to quickly read an `Rti` when debugging.
+
 ## Type tests
 
 `Rti` objects have two fields `_is` and `_as`.
