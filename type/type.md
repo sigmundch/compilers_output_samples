@@ -46,7 +46,12 @@ dart.addTypeTests = function addTypeTests(ctor, isClass) {
 
 var ObjectN = () => (ObjectN = dart.constFn(dart.nullable(core.Object)))();
 var GenericTypeOfint = () => (GenericTypeOfint = dart.constFn(type.GenericType$(core.int)))();
+
+// Calls to dart.fnType return a type given the types of the arguments and 
+// return type. It also memoizes the result so calling it again with the same
+// types returns the same instance of the function type.
 var StringToint = () => (StringToint = dart.constFn(dart.fnType(core.int, [core.String])))();
+
 var TToT = () => (TToT = dart.constFn(dart.gFnType(T => [T, [T]], T => [ObjectN()])))();
 var SAndintToint = () => (SAndintToint = dart.constFn(dart.gFnType(S => [core.int, [S, core.int]], S => [ObjectN()])))();
 
