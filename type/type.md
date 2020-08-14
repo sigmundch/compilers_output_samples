@@ -62,6 +62,10 @@ dart.setLibraryUri(type.InterfaceType, L0);
 
 /* ... */
 
+// Calls dart.generic() that returns a function that takes the type parameters as
+// arguments. You can call it to construct the generic type with a specific type 
+// argument. It also memoizes the result so calling it again with the same type
+// arguments returns the same instance of the type.
 type.GenericType$ = dart.generic(T => {
   class GenericType extends core.Object {
     genericFunction(S, s, t) {
