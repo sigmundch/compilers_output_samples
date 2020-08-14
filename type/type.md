@@ -62,6 +62,29 @@ dart.setLibraryUri(type.InterfaceType, L0);
 
 /* ... */
 
+type.GenericType$ = dart.generic(T => {
+  class GenericType extends core.Object {
+    genericFunction(S, s, t) {
+      T.as(t);
+      return t;
+    }
+  }
+  (GenericType.new = function() {
+    ;
+  }).prototype = GenericType.prototype;
+  dart.addTypeTests(GenericType);
+  GenericType.prototype[_is_GenericType_default] = true;
+  dart.addTypeCaches(GenericType);
+  dart.setMethodSignature(GenericType, () => ({
+    __proto__: dart.getMethods(GenericType.__proto__),
+    genericFunction: dart.gFnType(S => [T, [S, dart.nullable(core.Object)]], S => [dart.nullable(core.Object)])
+  }));
+  dart.setLibraryUri(GenericType, L0);
+  return GenericType;
+});
+
+/* ... */
+
 type.main = function main() {
   let primitive = true;
   core.print(typeof primitive == 'boolean');
