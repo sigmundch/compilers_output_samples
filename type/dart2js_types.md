@@ -74,6 +74,22 @@ The Rti library has a method `_instanceType(x)` that returns the `Rti` object fo
 Often we know something about `x`, so we can reduce the general call `_instanceType(x)` to something more efficient.
 For example in a method defined on a generic class with no subclasses, `_instanceType(this)` can be replaced by `this.$ti`.
 
+## Default is-test
+
+`T._is(o)` calls this method. The default for 'is' to use the general instance type getter and do a subtype check.
+
+```dart
+/// Called from generated code.
+bool _generalIsTestImplementation(Object? object) {
+  // This static method is installed on an Rti object as a JavaScript instance
+  // method. The Rti object is 'this'.
+  Rti testRti = _Utils.asRti(JS('', 'this'));
+  if (object == null) return _nullIs(testRti);
+  Rti objectRti = instanceOrFunctionType(object, testRti);
+  return isSubtype(_theUniverse(), objectRti, testRti);
+}
+
+```
 
 ## Derived type expressions
 
