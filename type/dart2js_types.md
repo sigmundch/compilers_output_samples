@@ -142,7 +142,7 @@ This makes the test `x is T` in a generic context much more efficient.
 The optimizer also knows about these specializations and will reduce `$types.int._is(x)` to `H._isInt(x)`.
 There are also specializations for `Object` and top types as well as the legacy and nullable versions of specializable types.
 
-If the type is an interface type `Foo` which has no type arguments or whose type arguments are all top types, we can instead lower `x is Foo` to a check for the property `x.$isFoo`.
+If the type is an interface type `Foo` which has no type arguments or whose type arguments are all top types, we can instead lower `x is Foo` to a check for the property `x.$isFoo`, or, in some cases, a JavaScript `instanceof` test, `x instanceof X.Foo`.
 
 ## Ground types, eval chains
 
